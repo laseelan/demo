@@ -27,23 +27,26 @@ public class AuthControllerTest {
 
     @Test
     public void should_authenticate() throws Exception {
-
+        // Arrange
         when(service.authenticate(any(User.class))).thenReturn(true);
+
         this.mockMvc.perform(get("/auth")
                 .param("username", "admin")
                 .param("password", "password"))
                 .andDo(print()).andExpect(status().isOk())
+                // Asset
                 .andExpect(content().string("true"));
     }
 
     @Test
     public void should_not_authenticate() throws Exception {
-
+        // Arrange
         when(service.authenticate(any(User.class))).thenReturn(false);
         this.mockMvc.perform(get("/auth")
                 .param("username", "admin")
                 .param("password", "password1"))
                 .andDo(print()).andExpect(status().isOk())
+                // Assert
                 .andExpect(content().string("false"));
     }
 }
